@@ -1,12 +1,15 @@
 .nav {
 	grid-area: n;
 	background-color: rgb(183, 170, 218);
+	padding: 10px;
 }
 
-.item {
-    color: white;
+.item a {
+	color: white;
+	text-decoration: none;
 }
 
-.item.active {
+.item a:active,
+.item a:focus {
 	color: purple;
 }

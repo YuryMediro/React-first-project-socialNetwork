@@ -1,11 +1,11 @@
 import MyPosts from './MyPosts/MyPosts'
 import s from './Profile.module.css'
+import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 const Profile = () => {
 	return (
-		<div >
-			<div>лого</div>
-			<div>ava + desc</div>
+		<div>
+			<ProfileInfo />
 			<MyPosts />
 		</div>
 	)
