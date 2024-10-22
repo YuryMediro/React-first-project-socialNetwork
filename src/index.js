@@ -12,8 +12,7 @@ let renderEntireTree = state => {
 		<React.StrictMode>
 			<App
 				state={state}
-				addPost={store.addPost.bind(store)} //забиндили метод store, чтобы он сохранился (.bind(store)) иначе будет undefined. Мы это делаем так-как нее вызываем его от имени store 
-				updateNewPostText={store.updateNewPostText.bind(store)}
+				dispatch={store.dispatch.bind(store)} //забиндили метод store, чтобы он сохранился (.bind(store)) иначе будет undefined. Мы это делаем так-как нее вызываем его от имени store
 			/>
 		</React.StrictMode>
 	)
