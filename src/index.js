@@ -1,28 +1,27 @@
 import reportWebVitals from './reportWebVitals'
-import state, { subscribe } from './Redux/state'
+import store from './Redux/state'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-import { addPost, updateNewPostText } from './Redux/state'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-let renderEntireTree = (state) => {
+let renderEntireTree = state => {
 	root.render(
 		<React.StrictMode>
 			<App
 				state={state}
-				addPost={addPost}
-				updateNewPostText={updateNewPostText}
+				addPost={store.addPost.bind(store)} //забиндили метод store, чтобы он сохранился (.bind(store)) иначе будет undefined. Мы это делаем так-как нее вызываем его от имени store 
+				updateNewPostText={store.updateNewPostText.bind(store)}
 			/>
 		</React.StrictMode>
 	)
 }
 
-renderEntireTree(state)
+renderEntireTree(store.getState())
 
-subscribe(renderEntireTree)
+store.subscribe(renderEntireTree)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
