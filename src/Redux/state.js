@@ -2,11 +2,6 @@ import dialogsReducer from './dialogs-reducer'
 import profileReducer from './profile-reducer'
 import sidebarReducer from './sidebar-reducer '
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY' //2
-const SEND_MESSAGE = 'SEND-MESSAGE' //4
-
 let store = {
 	_state: {
 		profilePage: {
@@ -52,20 +47,6 @@ let store = {
 		this._callSubscriber(this._state)
 	},
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST })
-export const updateNewPostTextActionCreator = text => ({
-	type: UPDATE_NEW_POST_TEXT,
-	newText: text,
-})
-
-//6
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE })
-//7 дальше Dialogs.jsx
-export const updateNewMessageBodyActionCreator = body => ({
-	type: UPDATE_NEW_MESSAGE_BODY,
-	body: body,
-})
 
 export default store
 window.state = store
