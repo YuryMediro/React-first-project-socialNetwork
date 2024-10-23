@@ -4,6 +4,7 @@ import Dialogs from './components/Dialogs/Dialogs'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Profile from './components/Profile/Profile'
+import store from './Redux/state'
 
 const App = props => {
 	return (
@@ -15,7 +16,11 @@ const App = props => {
 					<Routes>
 						<Route
 							path='/dialogs/*'
-							element={<Dialogs state={props.state.dialogsPage} />}
+							element={
+								<Dialogs
+									store={props.store} //13 Дальше Dialogs.jsx
+								/>
+							}
 						/>
 						<Route
 							path='/profile'

@@ -13,6 +13,7 @@ let renderEntireTree = state => {
 			<App
 				state={state}
 				dispatch={store.dispatch.bind(store)} //забиндили метод store, чтобы он сохранился (.bind(store)) иначе будет undefined. Мы это делаем так-как нее вызываем его от имени store
+				store={store} //12 дальше App.js
 			/>
 		</React.StrictMode>
 	)
