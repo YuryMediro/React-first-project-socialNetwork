@@ -4,7 +4,7 @@ import Dialogs from './components/Dialogs/Dialogs'
 import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Profile from './components/Profile/Profile'
-import store from './Redux/state'
+import store from './Redux/store'
 
 const App = props => {
 	return (
