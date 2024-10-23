@@ -1,14 +1,11 @@
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
-import {
-	sendMessageActionCreator,
-	updateNewMessageBodyActionCreator,
-} from '../../Redux/dialogs-reducer'
+
 
 const Dialogs = props => {
 	//14
-	let state = props.store.getState().dialogsPage
+	let state = props.dialogsPage
 
 	let dialogsElements = state.dialogs.map(d => (
 		<DialogItem name={d.name} id={d.id} />
@@ -22,15 +19,16 @@ const Dialogs = props => {
 
 	// 9
 	let onSendMessageClick = () => {
-		props.store.dispatch(sendMessageActionCreator())
+		props.sendMessage()
 	}
 
-	// 11 textarea засовывает сюда объект события e и с помощью e мы можем 
-	// достучаться до объекта с которым произошло событие с помощью target  
+	// 11 textarea засовывает сюда объект события e и с помощью e мы можем
+	// достучаться до объекта с которым произошло событие с помощью target
 	// Дальше index.js
 	let onNewMessageChange = e => {
 		let body = e.target.value
-		props.store.dispatch(updateNewMessageBodyActionCreator(body))
+		props.updateNewMessageBody(body)
+		
 	}
 
 	return (
