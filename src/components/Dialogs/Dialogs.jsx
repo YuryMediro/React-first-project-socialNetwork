@@ -2,16 +2,15 @@ import s from './Dialogs.module.css'
 import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
 
-
 const Dialogs = props => {
 	//14
 	let state = props.dialogsPage
 
 	let dialogsElements = state.dialogs.map(d => (
-		<DialogItem name={d.name} id={d.id} />
+		<DialogItem name={d.name} id={d.id} key={d.id} />
 	))
 	let messagesElements = state.messages.map(m => (
-		<Message message={m.message} />
+		<Message message={m.message} key={m.id} />
 	))
 
 	// 10
@@ -28,7 +27,6 @@ const Dialogs = props => {
 	let onNewMessageChange = e => {
 		let body = e.target.value
 		props.updateNewMessageBody(body)
-		
 	}
 
 	return (

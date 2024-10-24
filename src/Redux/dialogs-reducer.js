@@ -14,29 +14,33 @@ let initialState = {
 		{ id: 3, message: 'Why' },
 		{ id: 4, message: 'Where' },
 	],
-	newMessageBody: '', //1 
+	newMessageBody: '',
 }
 
 const dialogsReducer = (state = initialState, action) => {
-	//3
 	switch (action.type) {
 		case UPDATE_NEW_MESSAGE_BODY:
-			state.newMessageBody = action.body
-			return state
-		//5
+			return {
+				...state,
+				newMessageBody: action.body, //делаем поверхностную копию
+				//и уточняем те свойства которые надо переопределить
+			}
+
 		case SEND_MESSAGE:
 			let body = state.newMessageBody
-			state.newMessageBody = ''
-			state.messages.push({ id: 5, message: body })
-			return state
+			return {
+				...state,
+				newMessageBody: '',
+				messages: [...state.messages, { id: 5, message: body }],
+			} //делаем поверхностную копию и уточняем те свойства которые надо переопределить
+
 		default:
 			return state
 	}
 }
 
-//6
 export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE })
-//7 дальше Dialogs.jsx
+
 export const updateNewMessageBodyActionCreator = body => ({
 	type: UPDATE_NEW_MESSAGE_BODY,
 	body: body,
