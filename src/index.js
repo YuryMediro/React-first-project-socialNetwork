@@ -4,17 +4,16 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
+import { Provider } from './StoreContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 let renderEntireTree = state => {
 	root.render(
 		<React.StrictMode>
-			<App
-				state={state}
-				dispatch={store.dispatch.bind(store)} //забиндили метод store, чтобы он сохранился (.bind(store)) иначе будет undefined. Мы это делаем так-как нее вызываем его от имени store
-				store={store} //12 дальше App.js
-			/>
+			<Provider store={store}>
+				<App />
+			</Provider>
 		</React.StrictMode>
 	)
 }
