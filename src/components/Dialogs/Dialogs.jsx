@@ -3,7 +3,6 @@ import Message from './Message/Message'
 import DialogItem from './DialogItem/DialogItem'
 
 const Dialogs = props => {
-	//14
 	let state = props.dialogsPage
 
 	let dialogsElements = state.dialogs.map(d => (
@@ -13,10 +12,8 @@ const Dialogs = props => {
 		<Message message={m.message} key={m.id} />
 	))
 
-	// 10
 	let newMessageBody = state.newMessageBody
 
-	// 9
 	let onSendMessageClick = () => {
 		props.sendMessage()
 	}
@@ -34,7 +31,6 @@ const Dialogs = props => {
 			<div className={s.dialogsItems}>{dialogsElements}</div>
 			<div className={s.messages}>
 				<div>{messagesElements}</div>
-				{/* 8 */}
 				<div>
 					<div>
 						<textarea
