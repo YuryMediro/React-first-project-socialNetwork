@@ -11,6 +11,7 @@ class Users extends React.Component {
 			)
 			.then(Response => {
 				this.props.setUsers(Response.data.items)
+				this.props.setTotalUsersCount(Response.data.totalCount)
 			})
 	}
 
@@ -30,7 +31,9 @@ class Users extends React.Component {
 
 		let pages = []
 		for (let i = 1; i <= pagesCount; i++) {
-			pages.push(i)
+			if (pages.length < 10) {
+				pages.push(i)
+			}
 		}
 		return (
 			<div>
