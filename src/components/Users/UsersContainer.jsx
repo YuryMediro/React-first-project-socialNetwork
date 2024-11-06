@@ -11,34 +11,31 @@ import React from 'react'
 import axios from 'axios'
 import Users from './users'
 import Preloader from '../Common/Preloader/Preloader'
+import { usersAPI } from '../../api/api'
 
 class UsersAPIContainer extends React.Component {
 	componentDidMount() {
 		this.props.tooggleIsFetching(true)
-		axios
-			.get(
-				`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-				{ withCredentials: true }
-			)
-			.then(Response => {
+
+		usersAPI
+			.getUsers(this.props.currentPage, this.props.pageSize)
+			.then(data => {
+				//после then быд response
 				this.props.tooggleIsFetching(false)
-				this.props.setUsers(Response.data.items)
-				this.props.setTotalUsersCount(Response.data.totalCount)
+				this.props.setUsers(data.items) //удаляем response
+				this.props.setTotalUsersCount(data.totalCount) //удаляем response
 			})
 	}
 
 	onPageChanged = pageNumber => {
 		this.props.setCurrentPage(pageNumber)
 		this.props.tooggleIsFetching(true)
-		axios
-			.get(
-				`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-				{ withCredentials: true }
-			)
-			.then(Response => {
-				this.props.tooggleIsFetching(false)
-				this.props.setUsers(Response.data.items)
-			})
+
+		usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+			//после then быд response
+			this.props.tooggleIsFetching(false)
+			this.props.setUsers(data.items) //удаляем response
+		})
 	}
 
 	render() {
