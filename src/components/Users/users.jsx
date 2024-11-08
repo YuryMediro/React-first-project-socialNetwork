@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './users.module.css'
 import userPhoto from '../../assets/img/user.avif'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Navigate } from 'react-router-dom'
 
 let Users = props => {
 	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -12,7 +12,7 @@ let Users = props => {
 			pages.push(i)
 		}
 	}
-
+	
 	return (
 		<div>
 			<div>
