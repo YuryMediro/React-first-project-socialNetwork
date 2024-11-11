@@ -8,7 +8,7 @@ let Users = props => {
 
 	let pages = []
 	for (let i = 1; i <= pagesCount; i++) {
-		if (pages.length < 14) {
+		if (pages.length < 20) {
 			pages.push(i)
 		}
 	}
