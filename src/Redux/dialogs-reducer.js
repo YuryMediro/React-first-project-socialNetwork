@@ -1,4 +1,3 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY' //2
 const SEND_MESSAGE = 'SEND-MESSAGE' //4
 
 let initialState = {
@@ -14,23 +13,14 @@ let initialState = {
 		{ id: 3, message: 'Why' },
 		{ id: 4, message: 'Where' },
 	],
-	newMessageBody: '',
 }
 
 const dialogsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case UPDATE_NEW_MESSAGE_BODY:
-			return {
-				...state,
-				newMessageBody: action.body, //делаем поверхностную копию
-				//и уточняем те свойства которые надо переопределить
-			}
-
 		case SEND_MESSAGE:
-			let body = state.newMessageBody
+			let body = action.newMessageBody
 			return {
 				...state,
-				newMessageBody: '',
 				messages: [...state.messages, { id: 5, message: body }],
 			} //делаем поверхностную копию и уточняем те свойства которые надо переопределить
 
@@ -39,11 +29,9 @@ const dialogsReducer = (state = initialState, action) => {
 	}
 }
 
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE })
-
-export const updateNewMessageBodyActionCreator = body => ({
-	type: UPDATE_NEW_MESSAGE_BODY,
-	body: body,
+export const sendMessageActionCreator = newMessageBody => ({
+	type: SEND_MESSAGE,
+	newMessageBody,
 })
 
 export default dialogsReducer
