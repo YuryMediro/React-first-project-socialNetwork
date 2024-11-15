@@ -21,7 +21,7 @@ class ProfileContainer extends React.Component {
 		let userId = this.props.match.params.userId
 		if (!userId) {
 			//если userId нет, то загрузим второго пользователя
-			userId = 31810
+			userId = this.props.authorizedUserId
 		}
 		this.props.getUserProfile(userId)
 		this.props.getStatus(userId)
@@ -43,8 +43,8 @@ let mapStateToProps = state => {
 	return {
 		profile: state.profilePage.profile,
 		status: state.profilePage.status,
-		// authorizedUserId: state.auth.userId,
-		// isAuth: state.auth.isAuth,
+		authorizedUserId: state.auth.id,
+		isAuth: state.auth.isAuth,
 	}
 }
 
