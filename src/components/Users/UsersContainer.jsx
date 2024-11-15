@@ -60,5 +60,5 @@ export default compose(
 		toggleFollowingProgress,
 		getUsers: getUsersThunkCreator,
 	}),
-	withAuthRedirect
+	// withAuthRedirect
 )(UsersAPIContainer)

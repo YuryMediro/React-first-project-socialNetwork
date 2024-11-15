@@ -27,7 +27,7 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
 })
 
 export const getAuthUserData = () => dispatch => {
-	authAPI.me().then(Response => {
+	return authAPI.me().then(Response => {
 		if (Response.data.resultCode === 0) {
 			//если в респонсе в дате сидит резалткод 0
 			let { id, email, login } = Response.data.data //только в этом случае мы залогинены
