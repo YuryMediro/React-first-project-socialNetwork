@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { login } from '../../Redux/auth-reducer'
 import { Navigate } from 'react-router-dom'
 import s from '../Common/FormsControls/FormsControl.module.css'
+import { getIsAuth } from '../../Redux/selectors/login-selectors'
 
 const LoginForm = props => {
 	return (
@@ -66,6 +67,6 @@ const Login = props => {
 	)
 }
 const mapStateToProps = state => ({
-	isAuth: state.auth.isAuth,
+	isAuth: getIsAuth(state),
 })
 export default connect(mapStateToProps, { login })(Login)

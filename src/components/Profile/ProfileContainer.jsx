@@ -9,6 +9,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
+import { getAuthorizedUserId, getIsAuth, getProfile, getStatusProfile } from '../../Redux/selectors/profile-selectors'
 
 export function withRouter(Children) {
 	return props => {
@@ -41,10 +42,10 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = state => {
 	return {
-		profile: state.profilePage.profile,
-		status: state.profilePage.status,
-		authorizedUserId: state.auth.id,
-		isAuth: state.auth.isAuth,
+		profile: getProfile(state),
+		status: getStatusProfile(state),
+		authorizedUserId: getAuthorizedUserId(state),
+		isAuth: getIsAuth(state),
 	}
 }
 
