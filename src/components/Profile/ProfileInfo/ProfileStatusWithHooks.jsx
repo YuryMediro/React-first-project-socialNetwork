@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import s from './ProfileInfo.module.css'
 
 const ProfileStatusWithHooks = props => {
@@ -6,9 +6,16 @@ const ProfileStatusWithHooks = props => {
 	//из этого массива достаем первый элемент и записываем в переменную editMode,
 	//а второй элемент в переменную setEditMode
 	let [status, setStatus] = useState(props.status)
+
+	useEffect(() => {
+		//вызываем useEffect, когда к нам приходит новый статус в props
+		setStatus(props.status)
+	}, [props.status])
+
 	const activateEditMode = () => {
 		setEditMode(true)
 	}
+
 	const deactivateEditMode = () => {
 		setEditMode(false)
 		props.updateStatus(status)
