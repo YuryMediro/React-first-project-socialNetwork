@@ -22,12 +22,14 @@ import {
 
 class UsersAPIContainer extends React.Component {
 	componentDidMount() {
-		this.props.getUsers(this.props.currentPage, this.props.pageSize)
+		let { currentPage, pageSize } = this.props
+		this.props.getUsers(currentPage, pageSize)
 	}
 
 	onPageChanged = pageNumber => {
+		let { pageSize } = this.props
 		this.props.setCurrentPage(pageNumber) //чтобы менялся стиль при переключение страниц
-		this.props.getUsers(pageNumber, this.props.pageSize)
+		this.props.getUsers(pageNumber, pageSize)
 	}
 
 	render() {

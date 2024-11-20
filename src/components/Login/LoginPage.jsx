@@ -19,7 +19,6 @@ const LoginForm = props => {
 					types='input'
 					validate={[required]}
 				/>
-				<p></p>
 			</div>
 			<div>
 				<Field

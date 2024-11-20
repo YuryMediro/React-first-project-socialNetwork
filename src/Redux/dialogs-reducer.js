@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SEND-MESSAGE' //4
+const SEND_MESSAGE = 'dialogs/SEND-MESSAGE' //4
 
 let initialState = {
 	dialogs: [

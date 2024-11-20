@@ -7,12 +7,12 @@ import ProfileContainer, {
 	withRouter,
 } from './components/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
-import Login from './components/Login/Login'
 import { Component } from 'react'
 import { initializeApp } from './Redux/app-reducer'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Preloader from './components/Common/Preloader/Preloader'
+import LoginPage from './components/Login/LoginPage'
 
 class App extends Component {
 	componentDidMount() {
@@ -33,7 +33,7 @@ class App extends Component {
 						<Route path='/dialogs/*' element={<DialogsContainer />} />
 						<Route path='/profile/:userId?' element={<ProfileContainer />} />
 						<Route path='/users' element={<UsersContainer />} />
-						<Route path='/login' element={<Login />} />
+						<Route path='/login' element={<LoginPage />} />
 					</Routes>
 				</div>
 			</div>
