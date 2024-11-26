@@ -2,8 +2,13 @@ import Preloader from '../../Common/Preloader/Preloader'
 import s from './ProfileInfo.module.css'
 import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 import userPhoto from '../../../assets/img/user.avif'
+import { useState } from 'react'
+import ProfileDataForm from './ProfileDataForm'
+import ProfileData from './ProfileData'
 
 const ProfileInfo = props => {
+	let [editMode, setEditMode] = useState(false)
+
 	if (!props.profile) {
 		//если нет profile
 		return <Preloader /> //вернем прелодер
@@ -24,17 +29,25 @@ const ProfileInfo = props => {
 					src={props.profile.photos.small || userPhoto}
 				/>
 				{props.isOwner && (
-					<input
-						type={'file'}
-						name='file[]'
-						multiple
-						onChange={onMainPhotoSelected}
-					/>
+					<input type={'file'} onChange={onMainPhotoSelected} />
 				)}
+
 				<ProfileStatusWithHooks
 					status={props.status}
 					updateStatus={props.updateStatus}
 				/>
+
+				{editMode ? (
+					<ProfileDataForm profile={props.profile} />
+				) : (
+					<ProfileData
+						profile={props.profile}
+						isOwner={props.isOwner}
+						goToEditMode={() => {
+							setEditMode(true)
+						}}
+					/>
+				)}
 			</div>
 		</div>
 	)
