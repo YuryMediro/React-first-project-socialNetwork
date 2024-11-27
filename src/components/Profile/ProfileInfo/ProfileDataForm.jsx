@@ -1,6 +1,6 @@
 import { Field, reduxForm } from 'redux-form'
-import { Contacts } from './ProfileData'
 import { InputType } from '../../Common/FormsControls/FormsControls'
+import s from './ProfileInfo.module.css'
 
 const ProfileDataForm = props => {
 	return (
@@ -52,11 +52,17 @@ const ProfileDataForm = props => {
 				<b>Сontacts</b>:
 				{Object.keys(props.profile.contacts).map(key => {
 					return (
-						<Contacts
-							key={key}
-							contactTitle={key}
-							contactValue={props.profile.contacts[key]}
-						/>
+						<div key={key} className={s.contacts}>
+							<b>
+								{key}:
+								<Field
+									placeholder={key}
+									component={InputType}
+									types='input'
+									name={'contacts.' + key}
+								/>
+							</b>
+						</div>
 					)
 				})}
 			</div>
