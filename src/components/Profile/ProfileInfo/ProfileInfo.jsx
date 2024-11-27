@@ -19,7 +19,10 @@ const ProfileInfo = props => {
 			props.savePhoto(e.target.files[0])
 		}
 	}
-
+	const onSubmit = formData => {
+		props.saveProfile(formData)
+		setEditMode(false)
+	}
 	return (
 		<div>
 			<div>лого</div>
@@ -38,7 +41,11 @@ const ProfileInfo = props => {
 				/>
 
 				{editMode ? (
-					<ProfileDataForm profile={props.profile} />
+					<ProfileDataForm
+						initialValues={props.profile}
+						profile={props.profile}
+						onSubmit={onSubmit}
+					/>
 				) : (
 					<ProfileData
 						profile={props.profile}

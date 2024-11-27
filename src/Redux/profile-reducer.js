@@ -53,6 +53,7 @@ const profileReducer = (state = initialState, action) => {
 				profile: { ...state.profile, photos: action.photos },
 			}
 		}
+
 		default:
 			return state
 	}
@@ -91,5 +92,11 @@ export const savePhoto = file => async dispatch => {
 		dispatch(savePhotoSuccess(Response.data.data.photos))
 	}
 }
-
+export const saveProfile = profile => async (dispatch, getState) => {
+	const userId = getState().auth.id //если сервак обновил, то запросим getUserProfile
+	let Response = await profileAPI.saveProfile(profile)
+	if (Response.data.resultCode === 0) {
+		dispatch(getUserProfile(userId))
+	}
+}
 export default profileReducer

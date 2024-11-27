@@ -1,7 +1,6 @@
 import { Field, reduxForm } from 'redux-form'
 import { Contacts } from './ProfileData'
 import { InputType } from '../../Common/FormsControls/FormsControls'
-import { required } from '../../../utils/validators/validators'
 
 const ProfileDataForm = props => {
 	return (
