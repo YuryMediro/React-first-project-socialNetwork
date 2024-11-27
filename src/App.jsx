@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import ProfileContainer, {
@@ -37,8 +37,15 @@ class App extends Component {
 				<HeaderContainer />
 				<Navbar />
 				<div className='app-wrapper-content'>
-					<Suspense fallback={<div><Preloader/></div>}>
+					<Suspense
+						fallback={
+							<div>
+								<Preloader />
+							</div>
+						}
+					>
 						<Routes>
+							<Route path='/' element={<Navigate to = '/profile'/>} />
 							<Route path='/dialogs/*' element={<DialogsContainer />} />
 							<Route path='/profile/:userId?' element={<ProfileContainer />} />
 							<Route path='/users' element={<UsersContainer />} />
