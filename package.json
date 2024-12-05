@@ -6,6 +6,10 @@
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
+		"@types/jest": "^29.5.14",
+		"@types/node": "^22.10.1",
+		"@types/react": "^18.3.13",
+		"@types/react-dom": "^18.3.1",
 		"axios": "^1.7.7",
 		"classnames": "^2.5.1",
 		"react": "^18.3.1",
@@ -17,6 +21,7 @@
 		"redux-form": "^8.3.10",
 		"redux-thunk": "^3.1.0",
 		"reselect": "^5.1.1",
+		"typescript": "^5.7.2",
 		"web-vitals": "^2.1.4"
 	},
 	"jest": {
@@ -47,5 +52,8 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"devDependencies": {
+		"@types/redux-form": "^8.3.11"
 	}
 }
