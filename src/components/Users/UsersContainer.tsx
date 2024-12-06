@@ -19,16 +19,33 @@ import {
 	getTotalUsersCount,
 	getUsers,
 } from '../../Redux/selectors/users-selectors'
+import { UserType } from '../../types/types'
+import { AppStateType } from '../../Redux/redux-store'
 
-class UsersAPIContainer extends React.Component {
+type MapStatePropsType = {
+	currentPage: number
+	pageSize: number
+	isFetching: boolean
+	totalUsersCount: number
+	users: Array<UserType>
+	followingInProgress: Array<number>
+}
+type MapDispatchPropsType = {
+	follow: (userId: number) => void
+	unfollow: (userId: number) => void
+	getUsers: (currentPage: number, pageSize: number) => void
+}
+
+type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
+
+class UsersContainer extends React.Component<UsersContainerPropsType> {
 	componentDidMount() {
 		let { currentPage, pageSize } = this.props
 		this.props.getUsers(currentPage, pageSize)
 	}
 
-	onPageChanged = pageNumber => {
+	onPageChanged = (pageNumber: number) => {
 		let { pageSize } = this.props
-		this.props.setCurrentPage(pageNumber) //чтобы менялся стиль при переключение страниц
 		this.props.getUsers(pageNumber, pageSize)
 	}
 
@@ -61,7 +78,7 @@ class UsersAPIContainer extends React.Component {
 // 		followingInProgress: state.usersPage.followingInProgress,
 // 	}
 // }
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 	return {
 		users: getUsers(state),
 		pageSize: getPageSize(state),
@@ -81,4 +98,5 @@ export default compose(
 		getUsers: getUsersThunkCreator,
 	})
 	// withAuthRedirect
-)(UsersAPIContainer)
+	//@ts-ignore
+)(UsersContainer)

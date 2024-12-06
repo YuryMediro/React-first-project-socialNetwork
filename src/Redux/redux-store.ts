@@ -8,8 +8,7 @@ import { thunk } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import appReducer from './app-reducer'
 
-
-let reducers = combineReducers({
+let rootReducers = combineReducers({
 	profilePage: profileReducer,
 	dialogsPage: dialogsReducer,
 	sidebar: sidebarReducer,
@@ -19,8 +18,14 @@ let reducers = combineReducers({
 	app: appReducer,
 })
 
-let store = legacy_createStore(reducers, applyMiddleware(thunk))
+type RootReducersType = typeof rootReducers // (globalState: AppStateType) => AppStateType
+export type AppStateType = ReturnType<RootReducersType> //тип всего приложения STATE
+// let state: AppStateType
+// state.
 
+const store = legacy_createStore(rootReducers, applyMiddleware(thunk))
+
+//@ts-ignore
 window.store = store
 
 export default store

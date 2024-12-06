@@ -20,7 +20,10 @@ let initialState = {
 
 type InitialState = typeof initialState
 
-const usersReducer = (state = initialState, action: any): InitialState => {
+const usersReducer = (
+	state = initialState,
+	action: any
+): InitialState => {
 	switch (action.type) {
 		case FOLLOW:
 			return {
@@ -67,13 +70,22 @@ const usersReducer = (state = initialState, action: any): InitialState => {
 				...state,
 				followingInProgress: action.isFetching
 					? [...state.followingInProgress, action.userId] //если isFetching = true, то мы должны добавить в массив id
-					: state.followingInProgress.filter(id => id != action.userId), //если isFetching = false
+					: state.followingInProgress.filter(id => id !== action.userId), //если isFetching = false
 				//пришла подписка, то фильтруем удаляем id пользователя, пропускаем только ту id которая не равна id которая пришла в action
 			}
 		default:
 			return state
 	}
 }
+
+type ActionsTypes =
+	| FollowSuccessActionType
+	| UnfollowSuccessActionType
+	| SetUsersActionType
+	| SetCurrentPageActionType
+	| SetTotalUsersCountActionType
+	| ToggleIsFetchingActionType
+	| ToggleFollowingProgressActionType
 
 type FollowSuccessActionType = {
 	type: typeof FOLLOW
@@ -149,9 +161,11 @@ export const toggleFollowingProgress = (
 	userId,
 })
 
+
 export const getUsersThunkCreator =
 	(currentPage: number, pageSize: number) => async (dispatch: any) => {
 		dispatch(toggleIsFetching(true))
+		dispatch(setCurrentPage(currentPage)) //чтобы менялся стиль при переключение страниц
 		let data = await usersAPI.getUsers(currentPage, pageSize)
 		dispatch(toggleIsFetching(false))
 		dispatch(setUsers(data.items))
@@ -166,7 +180,7 @@ export const followUnfollowFlow = async (
 ) => {
 	dispatch(toggleFollowingProgress(true, userId))
 	let Response = await apiMethod(userId)
-	if (Response.data.resultCode == 0) {
+	if (Response.data.resultCode === 0) {
 		dispatch(actionCreator(userId))
 	}
 	dispatch(toggleFollowingProgress(false, userId))

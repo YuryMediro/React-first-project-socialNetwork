@@ -1,6 +1,14 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import s from './Paginator.module.css'
 import cn from 'classnames'
+
+type PaginatorProps = {
+	totalUsersCount: number
+	pageSize: number
+	currentPage: number
+	onPageChanged: (pageNumber: number) => void
+	portionSize?: number
+}
 
 let Paginator = ({
 	totalUsersCount,
@@ -8,17 +16,17 @@ let Paginator = ({
 	currentPage,
 	onPageChanged,
 	portionSize = 10,
-}) => {
+}: PaginatorProps) => {
 	let pagesCount = Math.ceil(totalUsersCount / pageSize)
 
-	let pages = []
+	let pages: Array<number> = []
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i)
 	}
 
 	let portionCount = Math.ceil(pagesCount / portionSize)
 	let [portionNumber, setPortionNumber] = useState(1) //hook храним первую
-	//порцию(portionNumber) и и функция(setPortionNumber), которая будет менять portionNumber
+	//порцию(portionNumber) и функция(setPortionNumber), которая будет менять portionNumber
 	let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
 	let rightPortionPageNumber = portionNumber * portionSize
 
