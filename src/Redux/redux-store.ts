@@ -20,12 +20,17 @@ let rootReducers = combineReducers({
 
 type RootReducersType = typeof rootReducers // (globalState: AppStateType) => AppStateType
 export type AppStateType = ReturnType<RootReducersType> //тип всего приложения STATE
-// let state: AppStateType
-// state.
 
-const store = legacy_createStore(rootReducers, applyMiddleware(thunk))
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> =
+	ReturnType<PropertiesTypes<T>> //в типе GetActionsTypes нужно указать
+//ограничение\constraint для передаваемого T, указав, что это ОБЯЗАТЕЛЬНО должен
+//быть объект, у которого в качестве значения св-ва обязательно функция,
+//принимающая что-нибудь и возвращаемая что-нибудь
 
 //@ts-ignore
-window.store = store
+const store = legacy_createStore(rootReducers, applyMiddleware(thunk))
+
+// window.store = store
 
 export default store

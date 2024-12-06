@@ -1,5 +1,10 @@
 import { stopSubmit } from 'redux-form'
-import { authAPI, securityAPI } from '../api/api'
+import {
+	ResultCodeForCaptchaEnum,
+	ResultCodesEnum,
+	authAPI,
+	securityAPI,
+} from '../api/api'
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
@@ -65,10 +70,10 @@ export const getCaptchaUrlSuccess = (
 })
 
 export const getAuthUserData = () => async (dispatch: any) => {
-	let Response = await authAPI.me()
-	if (Response.data.resultCode === 0) {
+	let meData = await authAPI.me()
+	if (meData.resultCode === ResultCodesEnum.Success) {
 		//если в респонсе в дате сидит резалткод 0
-		let { id, email, login } = Response.data.data //только в этом случае мы залогинены
+		let { id, email, login } = meData.data //только в этом случае мы залогинены
 		dispatch(setAuthUserData(id, email, login, true)) //и должны задиспачить эти данные
 	}
 }
@@ -76,24 +81,22 @@ export const getAuthUserData = () => async (dispatch: any) => {
 export const login =
 	(email: string, password: string, rememberMe: boolean, captcha: any) =>
 	async (dispatch: any) => {
-		let Response = await authAPI.login(email, password, rememberMe, captcha)
-		if (Response.data.resultCode === 0) {
+		let loginData = await authAPI.login(email, password, rememberMe, captcha)
+		if (loginData.resultCode === ResultCodesEnum.Success) {
 			dispatch(getAuthUserData())
 		} else {
-			if (Response.data.resultCode === 10) {
+			if (loginData.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
 				dispatch(getCaptchaUrl())
 			}
 			let message =
-				Response.data.messages.length > 0
-					? Response.data.messages[0]
-					: 'Some error'
+				loginData.messages.length > 0 ? loginData.messages[0] : 'Some error'
 			dispatch(stopSubmit('login', { _error: message })) //redux-form
 		}
 	}
 
 export const logout = () => async (dispatch: any) => {
-	let Response = await authAPI.logout()
-	if (Response.data.resultCode === 0) {
+	let logoutData = await authAPI.logout()
+	if (logoutData.resultCode === ResultCodesEnum.Success) {
 		dispatch(setAuthUserData(null, null, null, false)) //когда вылогинились мы зануляем все что знали о себе
 	}
 }

@@ -1,9 +1,7 @@
 import { connect } from 'react-redux'
 import {
 	follow,
-	setCurrentPage,
 	unfollow,
-	toggleFollowingProgress,
 	getUsersThunkCreator,
 } from '../../Redux/users-reducer'
 import React from 'react'
@@ -93,8 +91,6 @@ export default compose(
 	connect(mapStateToProps, {
 		follow,
 		unfollow,
-		setCurrentPage,
-		toggleFollowingProgress,
 		getUsers: getUsersThunkCreator,
 	})
 	// withAuthRedirect
