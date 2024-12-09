@@ -1,4 +1,3 @@
-import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { InputType } from '../Common/FormsControls/FormsControls'
 import { required } from '../../utils/validators/validators'

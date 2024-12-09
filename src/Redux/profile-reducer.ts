@@ -1,4 +1,5 @@
-import { profileAPI, usersAPI } from '../api/api'
+import { ResultCodesEnum } from '../api/api'
+import { profileAPI } from '../api/profileAPI'
 import { PhotosType, PostsType, ProfileType } from '../types/types'
 
 const ADD_POST = 'profile/ADD-POST'
@@ -119,33 +120,33 @@ export const savePhotoSuccess = (
 
 export const getUserProfile = (userId: number) => async (dispatch: any) => {
 	//thunk
-	let Response = await usersAPI.getProfile(userId)
-	dispatch(setUserProfile(Response.data))
+	let data = await profileAPI.getProfile(userId)
+	dispatch(setUserProfile(data))
 }
 export const getStatus = (userId: number) => async (dispatch: any) => {
 	//thunk
-	let Response = await profileAPI.getStatus(userId)
-	dispatch(setStatus(Response.data))
+	let data = await profileAPI.getStatus(userId)
+	dispatch(setStatus(data))
 }
 export const updateStatus = (status: string) => async (dispatch: any) => {
 	//thunk
-	let Response = await profileAPI.updateStatue(status)
-	if (Response.data.resultCode === 0) {
+	let data = await profileAPI.updateStatue(status)
+	if (data.resultCode === ResultCodesEnum.Success) {
 		dispatch(setStatus(status))
 	}
 }
 export const savePhoto = (file: any) => async (dispatch: any) => {
 	//thunk
-	let Response = await profileAPI.savePhoto(file)
-	if (Response.data.resultCode === 0) {
-		dispatch(savePhotoSuccess(Response.data.data.photos))
+	let data = await profileAPI.savePhoto(file)
+	if (data.resultCode === ResultCodesEnum.Success) {
+		dispatch(savePhotoSuccess(data.data.photos))
 	}
 }
 export const saveProfile =
 	(profile: string) => async (dispatch: any, getState: any) => {
 		const userId = getState().auth.id //если сервак обновил, то запросим getUserProfile
-		let Response = await profileAPI.saveProfile(profile)
-		if (Response.data.resultCode === 0) {
+		let data = await profileAPI.saveProfile(profile)
+		if (data.resultCode === ResultCodesEnum.Success) {
 			dispatch(getUserProfile(userId))
 		}
 	}

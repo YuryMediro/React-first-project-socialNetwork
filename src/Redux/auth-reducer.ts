@@ -1,10 +1,8 @@
 import { stopSubmit } from 'redux-form'
-import {
-	ResultCodeForCaptchaEnum,
-	ResultCodesEnum,
-	authAPI,
-	securityAPI,
-} from '../api/api'
+
+import { authAPI } from '../api/authAPI'
+import { securityAPI } from '../api/securityAPI'
+import { ResultCodeForCaptchaEnum, ResultCodesEnum } from '../api/api'
 
 const SET_USER_DATA = 'auth/SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
@@ -102,8 +100,8 @@ export const logout = () => async (dispatch: any) => {
 }
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
-	let Response = await securityAPI.getCaptchaUrl()
-	const captchaUrl = Response.data.url
+	let data = await securityAPI.getCaptchaUrl()
+	const captchaUrl = data.url
 	dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
