@@ -1,10 +1,10 @@
-import { applyMiddleware, combineReducers, legacy_createStore } from 'redux'
+import { Action, applyMiddleware, combineReducers, legacy_createStore } from 'redux'
 import profileReducer from './profile-reducer'
 import dialogsReducer from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer '
 import usersReducer from './users-reducer'
 import authReducer from './auth-reducer'
-import { thunk } from 'redux-thunk'
+import { ThunkAction, thunk } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import appReducer from './app-reducer'
 
@@ -27,6 +27,8 @@ export type InferActionsType<T extends { [key: string]: (...args: any[]) => any 
 //ограничение\constraint для передаваемого T, указав, что это ОБЯЗАТЕЛЬНО должен
 //быть объект, у которого в качестве значения св-ва обязательно функция,
 //принимающая что-нибудь и возвращаемая что-нибудь
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 //@ts-ignore
 const store = legacy_createStore(rootReducers, applyMiddleware(thunk))

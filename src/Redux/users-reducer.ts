@@ -1,6 +1,5 @@
-import { ThunkAction } from 'redux-thunk'
 import { UserType } from '../types/types'
-import { AppStateType, InferActionsType } from './redux-store'
+import { BaseThunkType, InferActionsType } from './redux-store'
 import { Dispatch } from 'redux'
 import { usersAPI } from '../api/usersAPI'
 
@@ -116,7 +115,7 @@ export const actions = {
 }
 
 type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes> //BaseThunkType лежит в redux-store.js
 
 export const getUsersThunkCreator =
 	(currentPage: number, pageSize: number): ThunkType =>
