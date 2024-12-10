@@ -1,4 +1,9 @@
-import { Action, applyMiddleware, combineReducers, legacy_createStore } from 'redux'
+import {
+	Action,
+	applyMiddleware,
+	combineReducers,
+	legacy_createStore,
+} from 'redux'
 import profileReducer from './profile-reducer'
 import dialogsReducer from './dialogs-reducer'
 import sidebarReducer from './sidebar-reducer '
@@ -21,14 +26,18 @@ let rootReducers = combineReducers({
 type RootReducersType = typeof rootReducers // (globalState: AppStateType) => AppStateType
 export type AppStateType = ReturnType<RootReducersType> //тип всего приложения STATE
 
-type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
-export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> =
-	ReturnType<PropertiesTypes<T>> //в типе GetActionsTypes нужно указать
-//ограничение\constraint для передаваемого T, указав, что это ОБЯЗАТЕЛЬНО должен
-//быть объект, у которого в качестве значения св-ва обязательно функция,
-//принимающая что-нибудь и возвращаемая что-нибудь
+export type InferActionsType<T> = T extends {
+	[keys: string]: (...args: any[]) => infer U
+}
+	? U
+	: never // это надо для action
 
-export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<
+	R,
+	AppStateType,
+	unknown,
+	A
+>
 
 //@ts-ignore
 const store = legacy_createStore(rootReducers, applyMiddleware(thunk))

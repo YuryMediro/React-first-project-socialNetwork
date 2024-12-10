@@ -12,3 +12,16 @@
 	padding: 5px;
 	color: red;
 }
+
+.input {
+	padding: 5px;
+}
+
+.rememberMe {
+	display: flex;
+	padding: 5px;
+}
+
+.btn {
+	padding: 5px;
+}
