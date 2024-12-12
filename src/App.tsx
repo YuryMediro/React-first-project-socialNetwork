@@ -1,9 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
-import ProfileContainer, {
-	withRouter,
-} from './components/Profile/ProfileContainer'
+import ProfileContainer from './components/Profile/ProfileContainer'
 import HeaderContainer from './components/Header/HeaderContainer'
 import React, { Component, Suspense } from 'react'
 import { initializeApp } from './Redux/app-reducer'
@@ -70,7 +68,4 @@ const mapStateToProps = (state: AppStateType): { initialized: boolean } => {
 	}
 }
 
-export default compose(
-	withRouter,
-	connect(mapStateToProps, { initializeApp })
-)(App)
+export default compose(connect(mapStateToProps, { initializeApp }))(App)
