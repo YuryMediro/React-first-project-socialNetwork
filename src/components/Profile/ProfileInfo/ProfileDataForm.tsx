@@ -1,10 +1,25 @@
-import { Field, reduxForm } from 'redux-form'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { InputType } from '../../Common/FormsControls/FormsControls'
 import s from './ProfileInfo.module.css'
+import { ProfileType } from '../../../types/types'
 
-const ProfileDataForm = props => {
+export type ProfileDataFormValuesType = {
+	fullName: string
+	lookingForAJob: boolean
+	lookingForAJobDescription: string
+	aboutMe: string
+	contacts: { [key: string]: string }
+}
+type LoginFormOwnProps = {
+	profile: ProfileType
+}
+const ProfileDataForm = ({
+	handleSubmit,
+	profile,
+}: InjectedFormProps<ProfileDataFormValuesType, LoginFormOwnProps> &
+	LoginFormOwnProps) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
+		<form onSubmit={handleSubmit}>
 			<div>
 				<button onClick={() => {}}>Save</button>
 			</div>
@@ -50,7 +65,7 @@ const ProfileDataForm = props => {
 			</div>
 			<div>
 				<b>Сontacts</b>:
-				{Object.keys(props.profile.contacts).map(key => {
+				{Object.keys(profile.contacts).map(key => {
 					return (
 						<div key={key} className={s.contacts}>
 							<b>
@@ -59,7 +74,7 @@ const ProfileDataForm = props => {
 									placeholder={key}
 									component={InputType}
 									types='input'
-									name={'contacts.' + key}
+									name={`contacts.${key}`}
 								/>
 							</b>
 						</div>
@@ -70,8 +85,6 @@ const ProfileDataForm = props => {
 	)
 }
 
-const ProfileDataFormReduxForm = reduxForm({
+export default reduxForm<ProfileDataFormValuesType, LoginFormOwnProps>({
 	form: 'edit-profile',
 })(ProfileDataForm)
-
-export default ProfileDataFormReduxForm

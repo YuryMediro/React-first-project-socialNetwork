@@ -1,14 +1,20 @@
 import { NavLink } from 'react-router-dom'
 import s from './Header.module.css'
 
-const Header = props => {
+type HeaderPropsType = {
+	isAuth: boolean
+	login: string
+	logout: () => void
+}
+
+const Header = ({ isAuth, login, logout }: HeaderPropsType) => {
 	return (
 		<header className={s.header}>
 			лого
 			<div className={s.loginBlock}>
-				{props.isAuth ? (
+				{isAuth ? (
 					<div>
-						{props.login} - <button onClick={props.logout}>Log out</button>
+						{login} - <button onClick={logout}>Log out</button>
 					</div>
 				) : (
 					<NavLink to={'/login'}>Login</NavLink>

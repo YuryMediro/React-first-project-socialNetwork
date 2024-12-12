@@ -92,5 +92,4 @@ export default compose(
 		unfollow,
 		getUsers: getUsersThunkCreator,
 	})
-	//@ts-ignore
 )(UsersContainer)

@@ -11,18 +11,24 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import Preloader from './components/Common/Preloader/Preloader'
 import LoginPage from './components/Login/LoginPage'
+import { AppStateType } from './Redux/redux-store'
 
 // import DialogsContainer from './components/Dialogs/DialogsContainer'
-const DialogsContainer = React.lazy(() =>
-	import('./components/Dialogs/DialogsContainer')
+const DialogsContainer = React.lazy(
+	() => import('./components/Dialogs/DialogsContainer')
 )
 
 // import UsersContainer from './components/Users/UsersContainer'
-const UsersContainer = React.lazy(() =>
-	import('./components/Users/UsersContainer')
+const UsersContainer = React.lazy(
+	() => import('./components/Users/UsersContainer')
 )
 
-class App extends Component {
+type AppPropsType = {
+	initializeApp: () => void
+	initialized: boolean
+}
+
+class App extends Component<AppPropsType> {
 	componentDidMount() {
 		this.props.initializeApp()
 	}
@@ -58,7 +64,7 @@ class App extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppStateType): { initialized: boolean } => {
 	return {
 		initialized: state.app.initialized,
 	}

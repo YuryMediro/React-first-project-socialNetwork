@@ -1,15 +1,22 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
-const ProfileStatusWithHooks = props => {
+type ProfileStatusWithHooksPropsType = {
+	status: string
+	updateStatus: (status: string) => void
+}
+const ProfileStatusWithHooks = ({
+	status,
+	updateStatus,
+}: ProfileStatusWithHooksPropsType) => {
 	let [editMode, setEditMode] = useState(false) //useState возвращает массив и мы
 	//из этого массива достаем первый элемент и записываем в переменную editMode,
 	//а второй элемент в переменную setEditMode
-	let [status, setStatus] = useState(props.status)
+	let [localStatus, setLocalStatus] = useState(status)
 
 	useEffect(() => {
 		//вызываем useEffect, когда к нам приходит новый статус в props
-		setStatus(props.status)
-	}, [props.status])
+		setLocalStatus(status)
+	}, [status])
 
 	const activateEditMode = () => {
 		setEditMode(true)
@@ -17,20 +24,18 @@ const ProfileStatusWithHooks = props => {
 
 	const deactivateEditMode = () => {
 		setEditMode(false)
-		props.updateStatus(status)
+		updateStatus(localStatus)
 	}
-	const onStatusChange = e => {
+	const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
 		//При каждом напечатываение символа мы будем менять локальный state
-		setStatus(e.currentTarget.value)
+		setLocalStatus(e.currentTarget.value)
 	}
 	return (
 		<div>
 			{!editMode && (
 				<div>
 					<b>Status</b>:{' '}
-					<span onDoubleClick={activateEditMode}>
-						{props.status || 'No status'}
-					</span>
+					<span onDoubleClick={activateEditMode}>{status || 'No status'}</span>
 				</div>
 			)}
 
