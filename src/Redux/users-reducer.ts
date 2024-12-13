@@ -11,9 +11,12 @@ let initialState = {
 	currentPage: 1,
 	isFetching: false,
 	followingInProgress: [] as Array<number>, //array of users id
+	filter: { term: '', friend: null as null | boolean },
 }
 
 export type InitialState = typeof initialState
+
+export type FilterType = typeof initialState.filter
 
 const usersReducer = (
 	state = initialState,
@@ -68,6 +71,11 @@ const usersReducer = (
 					: state.followingInProgress.filter(id => id !== action.userId), //если isFetching = false
 				//пришла подписка, то фильтруем удаляем id пользователя, пропускаем только ту id которая не равна id которая пришла в action
 			}
+		case 'users/SET_FILTER':
+			return {
+				...state,
+				filter: action.payload,
+			}
 		default:
 			return state
 	}
@@ -113,17 +121,24 @@ export const actions = {
 			isFetching,
 			userId,
 		} as const),
+	setFilter: (filter: FilterType) =>
+		({
+			type: 'users/SET_FILTER',
+			payload: filter,
+		} as const),
 }
 
 type DispatchType = Dispatch<ActionsTypes>
 type ThunkType = BaseThunkType<ActionsTypes> //BaseThunkType лежит в redux-store.js
 
 export const getUsersThunkCreator =
-	(currentPage: number, pageSize: number): ThunkType =>
+	(currentPage: number, pageSize: number, filter: FilterType): ThunkType =>
 	async dispatch => {
 		dispatch(actions.toggleIsFetching(true))
 		dispatch(actions.setCurrentPage(currentPage)) //чтобы менялся стиль при переключение страниц
-		let data = await usersAPI.getUsers(currentPage, pageSize)
+		dispatch(actions.setFilter(filter)) //чтобы менялся стиль при переключение страниц
+
+		let data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
 		dispatch(actions.toggleIsFetching(false))
 		dispatch(actions.setUsers(data.items))
 		dispatch(actions.setTotalUsersCount(data.totalCount))

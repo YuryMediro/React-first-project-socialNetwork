@@ -3,6 +3,7 @@ import {
 	follow,
 	unfollow,
 	getUsersThunkCreator,
+	FilterType,
 } from '../../Redux/users-reducer'
 import React from 'react'
 import Users from './users'
@@ -15,6 +16,7 @@ import {
 	getPageSize,
 	getTotalUsersCount,
 	getUsers,
+	getUsersFilter,
 } from '../../Redux/selectors/users-selectors'
 import { UserType } from '../../types/types'
 import { AppStateType } from '../../Redux/redux-store'
@@ -26,24 +28,30 @@ type MapStatePropsType = {
 	totalUsersCount: number
 	users: Array<UserType>
 	followingInProgress: Array<number>
+	filter: FilterType
 }
 type MapDispatchPropsType = {
 	follow: (userId: number) => void
 	unfollow: (userId: number) => void
-	getUsers: (currentPage: number, pageSize: number) => void
+	getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void
 }
 
 type UsersContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
 class UsersContainer extends React.Component<UsersContainerPropsType> {
 	componentDidMount() {
-		let { currentPage, pageSize } = this.props
-		this.props.getUsers(currentPage, pageSize)
+		let { currentPage, pageSize, filter } = this.props
+		this.props.getUsers(currentPage, pageSize, filter)
 	}
 
 	onPageChanged = (pageNumber: number) => {
+		let { pageSize, filter } = this.props
+		this.props.getUsers(pageNumber, pageSize, filter)
+	}
+
+	onFiletChanged = (filter: FilterType) => {
 		let { pageSize } = this.props
-		this.props.getUsers(pageNumber, pageSize)
+		this.props.getUsers(1, pageSize, filter)
 	}
 
 	render() {
@@ -59,6 +67,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType> {
 					follow={this.props.follow}
 					unfollow={this.props.unfollow}
 					followingInProgress={this.props.followingInProgress}
+					onFiletChanged={this.onFiletChanged}
 				/>
 			</>
 		)
@@ -83,6 +92,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 		currentPage: getCurrentPage(state),
 		isFetching: getIsFetching(state),
 		followingInProgress: getFollowingInProgress(state),
+		filter: getUsersFilter(state),
 	}
 }
 

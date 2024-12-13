@@ -1,6 +1,8 @@
+import { FilterType } from '../../Redux/users-reducer'
 import { UserType } from '../../types/types'
 import Paginator from '../Common/Paginator/Paginator'
 import User from './User'
+import { UsersSearchForm } from './UsersSearchForm'
 
 type UsersProps = {
 	totalUsersCount: number
@@ -11,6 +13,7 @@ type UsersProps = {
 	followingInProgress: Array<number>
 	unfollow: (userId: number) => void
 	follow: (userId: number) => void
+	onFiletChanged: (filter: FilterType) => void
 }
 
 let Users = ({
@@ -22,9 +25,11 @@ let Users = ({
 	followingInProgress,
 	unfollow,
 	follow,
+	onFiletChanged,
 }: UsersProps) => {
 	return (
 		<div>
+			<UsersSearchForm onFiletChanged={onFiletChanged} />
 			<Paginator
 				currentPage={currentPage}
 				onPageChanged={onPageChanged}
