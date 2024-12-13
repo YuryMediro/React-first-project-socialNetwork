@@ -3,7 +3,7 @@ import s from './Header.module.css'
 
 type HeaderPropsType = {
 	isAuth: boolean
-	login: string
+	login: string | null
 	logout: () => void
 }
 

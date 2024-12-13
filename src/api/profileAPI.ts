@@ -15,7 +15,7 @@ export const profileAPI = {
 			.get<string>(`profile/status/` + userId)
 			.then(res => res.data)
 	},
-	updateStatue(status: string) {
+	updateStatus(status: string) {
 		return instance
 			.put<APIResponseType>(`profile/status`, { status: status })
 			.then(res => res.data)
@@ -35,7 +35,7 @@ export const profileAPI = {
 			)
 			.then(res => res.data)
 	},
-	saveProfile(profile: string) {
+	saveProfile(profile: ProfileType) {
 		return instance
 			.put<APIResponseType>(`profile`, profile)
 			.then(res => res.data)

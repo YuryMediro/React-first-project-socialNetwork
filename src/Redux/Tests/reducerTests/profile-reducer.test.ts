@@ -1,4 +1,4 @@
-import profileReducer, { actions } from './profile-reducer'
+import profileReducer, { actions } from '../../profile-reducer'
 
 let state = {
 	posts: [

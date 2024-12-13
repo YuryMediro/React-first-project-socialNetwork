@@ -115,7 +115,7 @@ export const updateStatus =
 	(status: string): ThunkType =>
 	async dispatch => {
 		//thunk
-		let data = await profileAPI.updateStatue(status)
+		let data = await profileAPI.updateStatus(status)
 		if (data.resultCode === ResultCodesEnum.Success) {
 			dispatch(actions.setStatus(status))
 		}
@@ -132,7 +132,7 @@ export const savePhoto =
 	}
 
 export const saveProfile =
-	(profile: string): ThunkType =>
+	(profile: ProfileType): ThunkType =>
 	async (dispatch, getState) => {
 		const userId = getState().auth.id //если сервак обновил, то запросим getUserProfile
 		let data = await profileAPI.saveProfile(profile)

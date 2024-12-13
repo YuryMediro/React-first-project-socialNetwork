@@ -13,6 +13,7 @@ import { ThunkAction, thunk } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 import appReducer from './app-reducer'
 
+// Комбинируем редьюсеры
 let rootReducers = combineReducers({
 	profilePage: profileReducer,
 	dialogsPage: dialogsReducer,
@@ -23,15 +24,17 @@ let rootReducers = combineReducers({
 	app: appReducer,
 })
 
-type RootReducersType = typeof rootReducers // (globalState: AppStateType) => AppStateType
-export type AppStateType = ReturnType<RootReducersType> //тип всего приложения STATE
+// Типы состояния приложения
+export type AppStateType = ReturnType<typeof rootReducers> //тип всего приложения STATE
 
+// Типизация для actions
 export type InferActionsType<T> = T extends {
 	[keys: string]: (...args: any[]) => infer U
 }
 	? U
 	: never // это надо для action
 
+// Типизация для thunk
 export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<
 	R,
 	AppStateType,
@@ -39,9 +42,20 @@ export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<
 	A
 >
 
+// Создаём store
+// const store = configureStore({
+//   reducer: rootReducer,
+// }); Redux-toolkit
 //@ts-ignore
 const store = legacy_createStore(rootReducers, applyMiddleware(thunk))
 
-// window.store = store
+// Расширяем тип Window
+declare global {
+	interface Window {
+		store: typeof store
+	}
+}
+
+window.store = store
 
 export default store
