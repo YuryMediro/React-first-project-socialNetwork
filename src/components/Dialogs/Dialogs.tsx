@@ -1,17 +1,17 @@
 import s from './Dialogs.module.css'
-import Message from './Message/Message'
-import DialogItem from './DialogItem/DialogItem'
 import { InitialStateType } from '../../Redux/dialogs-reducer'
 import AddMessageForm, {
 	AddMessageFormValuesType,
 } from './AddMessageForm/AddMessageForm'
+import { DialogItem } from './DialogItem/DialogItem'
+import { Message } from './Message/Message'
 
 type DialogsPropsType = {
 	dialogsPage: InitialStateType
 	sendMessage: (messageText: string) => void
 }
 
-const Dialogs = ({ dialogsPage, sendMessage }: DialogsPropsType) => {
+export const Dialogs = ({ dialogsPage, sendMessage }: DialogsPropsType) => {
 	let dialogsElements = dialogsPage.dialogs.map(d => (
 		<DialogItem name={d.name} id={d.id} key={d.id} />
 	))
@@ -34,4 +34,3 @@ const Dialogs = ({ dialogsPage, sendMessage }: DialogsPropsType) => {
 	)
 }
 
-export default Dialogs

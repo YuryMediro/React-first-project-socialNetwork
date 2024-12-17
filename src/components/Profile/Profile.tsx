@@ -1,6 +1,6 @@
 import { ProfileType } from '../../types/types'
-import MyPostsContainer from './MyPosts/MyPostsContainer'
-import ProfileInfo from './ProfileInfo/ProfileInfo'
+import { MyPostsContainer } from './MyPosts/MyPostsContainer'
+import { ProfileInfo } from './ProfileInfo/ProfileInfo'
 
 type ProfilePropsType = {
 	profile: ProfileType | null
@@ -11,7 +11,7 @@ type ProfilePropsType = {
 	updateStatus: (status: string) => void
 }
 
-const Profile = ({
+export const Profile = ({
 	profile,
 	status,
 	isOwner,
@@ -34,4 +34,3 @@ const Profile = ({
 	)
 }
 
-export default Profile

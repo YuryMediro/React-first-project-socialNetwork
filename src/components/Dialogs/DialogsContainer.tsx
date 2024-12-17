@@ -1,25 +1,25 @@
-import { connect } from 'react-redux'
 import { actions } from '../../Redux/dialogs-reducer'
-import Dialogs from './Dialogs'
-import {withAuthRedirect} from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
 import { getDialogsPage } from '../../Redux/selectors/dialogs-selectors'
-import { AppStateType } from '../../Redux/redux-store'
+import { AppDispatch } from '../../Redux/redux-store'
+import { Dialogs } from './Dialogs'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { withAuthRedirect } from '../../customHook/withAuthRedirect'
+// import { useWithAuthRedirect } from '../../customHook/withAuthRedirect'
 
-const mapStateToProps = (state: AppStateType) => {
-	return {
-		dialogsPage: getDialogsPage(state),
+export const DialogsContainer = () => {
+
+	// useWithAuthRedirect()
+
+	const useAppDispatch: () => AppDispatch = useDispatch
+	const dispatch = useAppDispatch()
+	const dialogsPage = useSelector(getDialogsPage)
+
+	const sendMessage = (newMessageBody: string) => {
+		dispatch(actions.sendMessage(newMessageBody))
 	}
-}
-// let mapDispatchToProps = dispatch => {
-// 	return {
-// 		sendMessage: newMessageBody => {
-// 			dispatch(actions.sendMessage(newMessageBody))
-// 		},
-// 	}
-// }
 
-export default compose(
-	connect(mapStateToProps, { sendMessage: actions.sendMessage }),
-	withAuthRedirect
-)(Dialogs)
+	return <Dialogs sendMessage={sendMessage} dialogsPage={dialogsPage} />
+}
+
+export default withAuthRedirect(DialogsContainer)

@@ -7,7 +7,7 @@ type HeaderPropsType = {
 	logout: () => void
 }
 
-const Header = ({ isAuth, login, logout }: HeaderPropsType) => {
+export const Header = ({ isAuth, login, logout }: HeaderPropsType) => {
 	return (
 		<header className={s.header}>
 			лого
@@ -24,4 +24,3 @@ const Header = ({ isAuth, login, logout }: HeaderPropsType) => {
 	)
 }
 
-export default Header

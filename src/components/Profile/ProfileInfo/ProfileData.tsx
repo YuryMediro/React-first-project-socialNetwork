@@ -7,7 +7,7 @@ type ProfileDataPropsType = {
 	profile: ProfileType
 }
 
-const ProfileData = ({
+export const ProfileData = ({
 	isOwner,
 	goToEditMode,
 	profile,
@@ -64,4 +64,3 @@ export const Contacts = ({ contactTitle, contactValue }: ContactsPropsType) => {
 	)
 }
 
-export default ProfileData

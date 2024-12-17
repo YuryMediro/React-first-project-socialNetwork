@@ -4,7 +4,7 @@ type ProfileStatusWithHooksPropsType = {
 	status: string
 	updateStatus: (status: string) => void
 }
-const ProfileStatusWithHooks = ({
+export const ProfileStatusWithHooks = ({
 	status,
 	updateStatus,
 }: ProfileStatusWithHooksPropsType) => {
@@ -54,4 +54,3 @@ const ProfileStatusWithHooks = ({
 	)
 }
 
-export default ProfileStatusWithHooks

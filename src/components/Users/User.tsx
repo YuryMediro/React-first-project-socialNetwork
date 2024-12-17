@@ -10,7 +10,7 @@ type UserPropsType = {
 	unfollow: (userId: number) => void
 }
 
-let User = ({ user, followingInProgress, unfollow, follow }: UserPropsType) => {
+export const User = ({ user, followingInProgress, unfollow, follow }: UserPropsType) => {
 	return (
 		<div>
 			<span>
@@ -62,4 +62,3 @@ let User = ({ user, followingInProgress, unfollow, follow }: UserPropsType) => {
 	)
 }
 
-export default User

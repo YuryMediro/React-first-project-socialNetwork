@@ -1,28 +1,21 @@
 import { actions } from '../../../Redux/profile-reducer'
-import { AppStateType } from '../../../Redux/redux-store'
+import { AppDispatch } from '../../../Redux/redux-store'
 import {
 	getNewPostText,
 	getPosts,
 } from '../../../Redux/selectors/myPosts-selectors'
-import MyPosts from './MyPosts'
-import { connect } from 'react-redux'
+import { MyPosts } from './MyPosts'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-let mapStateToProps = (state: AppStateType) => {
-	return {
-		posts: getPosts(state),
-		newPostText: getNewPostText(state),
+export const MyPostsContainer = () => {
+	const useAppDispatch: () => AppDispatch = useDispatch
+	const dispatch = useAppDispatch()
+	const posts = useSelector(getPosts)
+	const newPostText = useSelector(getNewPostText)
+
+	const addPost = (newPostText: string) => {
+		dispatch(actions.addPostActionCreator(newPostText))
 	}
+	return <MyPosts addPost={addPost} posts={posts} newPostText={newPostText} />
 }
-// let mapDispatchToProps = dispatch => {
-// 	return {
-// 		addPost: newPostText => {
-// 			dispatch(actions.addPostActionCreator(newPostText))
-// 		},
-// 	}
-// }
-
-const MyPostsContainer = connect(mapStateToProps, {
-	addPost: actions.addPostActionCreator,
-})(MyPosts)
-
-export default MyPostsContainer

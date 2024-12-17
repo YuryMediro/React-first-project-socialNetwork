@@ -3,14 +3,15 @@ import AddPostForm, {
 	AddNewPostFormValuesType,
 } from './AddPostForm/AddPostForm'
 import s from './MyPosts.module.css'
-import Post from './Post/Post'
+import { Post } from './Post/Post'
 
 type MyPostsPropsType = {
 	posts: Array<PostsType>
 	addPost: (postText: string) => void
+	newPostText: string
 }
 
-const MyPosts = ({ posts, addPost }: MyPostsPropsType) => {
+export const MyPosts = ({ posts, addPost }: MyPostsPropsType) => {
 	let postsElement = posts.map(p => (
 		<Post message={p.message} likesCount={p.likesCount} key={p.id} />
 	))
@@ -28,4 +29,3 @@ const MyPosts = ({ posts, addPost }: MyPostsPropsType) => {
 	)
 }
 
-export default MyPosts

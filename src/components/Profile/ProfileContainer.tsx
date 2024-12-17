@@ -1,4 +1,3 @@
-import Profile from './Profile'
 import React, { ComponentType } from 'react'
 import { connect } from 'react-redux'
 import {
@@ -9,16 +8,19 @@ import {
 	saveProfile,
 } from '../../Redux/profile-reducer'
 import { useParams } from 'react-router-dom'
-import { withAuthRedirect } from '../../hoc/withAuthRedirect'
+import { withAuthRedirect } from '../../customHook/withAuthRedirect'
 import { compose } from 'redux'
 import {
 	getAuthorizedUserId,
-	getIsAuth,
 	getProfile,
 	getStatusProfile,
 } from '../../Redux/selectors/profile-selectors'
-import { AppStateType } from '../../Redux/redux-store'
+import { AppDispatch, AppStateType } from '../../Redux/redux-store'
 import { ProfileType } from '../../types/types'
+import { Profile } from './Profile'
+import { getIsAuth } from '../../Redux/selectors/withAuthRedirect-selectors'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 type MapStatePropsType = {
 	profile: ReturnType<typeof getProfile>
@@ -43,6 +45,25 @@ export function withRouter<T>(Component: ComponentType<T>) {
 		return <Component {...props} match={match} />
 	}
 }
+
+// export const ProfileContainer1 = () => {
+// 	const useAppDispatch: () => AppDispatch = useDispatch
+// 	const dispatch = useAppDispatch()
+// 	const profile = useSelector(getProfile)
+// 	const status = useSelector(getStatusProfile)
+// 	const authorizedUserId = useSelector(getAuthorizedUserId)
+// 	const isAuth = useSelector(getIsAuth)
+
+// 	return (
+// 		<Profile
+// 			isOwner={!userId}
+// 			profile={profile}
+// 			status={status}
+// 			updateStatus={updateStatus}
+// 			savePhoto={savePhoto}
+// 		/>
+// 	)
+// }
 
 class ProfileContainer extends React.Component<UsersContainerPropsType> {
 	refreshProfile() {

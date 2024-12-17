@@ -1,11 +1,11 @@
 import s from './../Dialogs.module.css'
 
-type MessagePropsTypy = {
+type MessagePropsType = {
 	message: string
 }
 
-const Message = ({ message }: MessagePropsTypy) => {
+export const Message = ({ message }: MessagePropsType) => {
 	return <div className={s.dialog}>{message}</div>
 }
 
-export default Message
+

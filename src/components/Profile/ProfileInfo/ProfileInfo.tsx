@@ -1,11 +1,11 @@
 import Preloader from '../../Common/Preloader/Preloader'
 import s from './ProfileInfo.module.css'
-import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 import userPhoto from '../../../assets/img/user.avif'
 import { ChangeEvent, useState } from 'react'
 import { ProfileType } from '../../../types/types'
 import ProfileDataForm, { ProfileDataFormValuesType } from './ProfileDataForm'
-import ProfileData from './ProfileData'
+import { ProfileData } from './ProfileData'
+import { ProfileStatusWithHooks } from './ProfileStatusWithHooks'
 
 type ProfileInfoPropsType = {
 	profile: ProfileType | null
@@ -16,7 +16,7 @@ type ProfileInfoPropsType = {
 	updateStatus: (status: string) => void
 }
 
-const ProfileInfo = ({
+export const ProfileInfo = ({
 	profile,
 	status,
 	isOwner,
@@ -77,4 +77,3 @@ const ProfileInfo = ({
 	)
 }
 
-export default ProfileInfo

@@ -6,7 +6,7 @@ type DialogItemPropsType = {
 	id: number
 }
 
-const DialogItem = ({ name, id }: DialogItemPropsType) => {
+export const DialogItem = ({ name, id }: DialogItemPropsType) => {
 	return (
 		<div className={`${s.dialog} ${s.active}`}>
 			<NavLink to={`/dialogs/${id}`}>{name}</NavLink>
@@ -14,4 +14,4 @@ const DialogItem = ({ name, id }: DialogItemPropsType) => {
 	)
 }
 
-export default DialogItem
+
