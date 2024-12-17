@@ -1,4 +1,3 @@
-import Preloader from '../../Common/Preloader/Preloader'
 import s from './ProfileInfo.module.css'
 import userPhoto from '../../../assets/img/user.avif'
 import { ChangeEvent, useState } from 'react'
@@ -6,6 +5,7 @@ import { ProfileType } from '../../../types/types'
 import ProfileDataForm, { ProfileDataFormValuesType } from './ProfileDataForm'
 import { ProfileData } from './ProfileData'
 import { ProfileStatusWithHooks } from './ProfileStatusWithHooks'
+import { Preloader } from '../../Common/Preloader/Preloader'
 
 type ProfileInfoPropsType = {
 	profile: ProfileType | null

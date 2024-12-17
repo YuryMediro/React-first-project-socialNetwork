@@ -4,12 +4,12 @@ import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { initializeApp } from './Redux/app-reducer'
 import { AppDispatch } from './Redux/redux-store'
-import Preloader from './components/Common/Preloader/Preloader'
 import { UsersPage } from './components/Users/UsersPage'
 import { Login } from './components/Login/LoginPage'
 import { HeaderContainer } from './components/Header/HeaderContainer'
 import { Navbar } from './components/Navbar/Navbar'
 import { getInitialized } from './Redux/selectors/app-selectors'
+import { Preloader } from './components/Common/Preloader/Preloader'
 
 // Ленивый импорт для DialogsContainer
 const DialogsContainer = React.lazy(

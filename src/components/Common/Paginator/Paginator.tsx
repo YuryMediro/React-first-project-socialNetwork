@@ -10,7 +10,7 @@ type PaginatorProps = {
 	portionSize?: number
 }
 
-let Paginator = ({
+export const Paginator = ({
 	totalUsersCount,
 	pageSize,
 	currentPage,
@@ -71,4 +71,3 @@ let Paginator = ({
 	)
 }
 
-export default Paginator

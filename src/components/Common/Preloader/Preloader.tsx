@@ -2,7 +2,7 @@ import preloader from '../../../assets/img/preloader.svg'
 
 type PreloaderPropsType = {}
 
-let Preloader = ({}: PreloaderPropsType) => {
+export const Preloader = ({}: PreloaderPropsType) => {
 	return (
 		<div>
 			<img src={preloader} />
@@ -10,4 +10,3 @@ let Preloader = ({}: PreloaderPropsType) => {
 	)
 }
 
-export default Preloader

@@ -1,6 +1,10 @@
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
-import { FilterType, follow, getUsersThunkCreator, unfollow } from '../../Redux/users-reducer'
-import Paginator from '../Common/Paginator/Paginator'
+import {
+	FilterType,
+	follow,
+	getUsersThunkCreator,
+	unfollow,
+} from '../../Redux/users-reducer'
 import { UsersSearchForm } from './UsersSearchForm'
 import {
 	getCurrentPage,
@@ -14,6 +18,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { AppDispatch, AppStateType } from '../../Redux/redux-store'
 import { User } from './User'
+import { Paginator } from '../Common/Paginator/Paginator'
 
 export const Users = () => {
 	const useAppDispatch: () => AppDispatch = useDispatch
