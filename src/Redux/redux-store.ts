@@ -26,7 +26,7 @@ let rootReducers = combineReducers({
 
 // Типы состояния приложения
 export type AppStateType = ReturnType<typeof rootReducers> //тип всего приложения STATE
-
+export type AppDispatch = typeof store.dispatch //Типизация useDispatch
 // Типизация для actions
 export type InferActionsType<T> = T extends {
 	[keys: string]: (...args: any[]) => infer U
